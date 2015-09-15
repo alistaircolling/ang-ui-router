@@ -32,7 +32,46 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
   // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
   .state('about', {
-    // we'll get to this in a bit
+    url: '/about',
+    views: {
+      //main template (notice blank string key)
+      '': {
+        templateUrl: 'partial-about.html'
+      },
+      //child view absolutely named
+      'columnOne@about': {
+        template: 'There should be a table of scotch to the right'
+      },
+      //for column 2 we will define a separate controller - I wonder if I could create a separate js file for the controller rather than having it all in the massive app.js doc hmmm
+      'columnTwo@about': {
+        
+          templateUrl: 'table-data.html',
+          controller: 'scotchController'
+      }
+
+    }
+
   });
 
 });
+
+
+//MAPPING a controller to the router - as above is it better to do this in a separete js file hmm?
+
+//this is the controller that is defined above that is used in the 'about' state
+
+routerApp.controller('scotchController', function($scope) {
+
+  $scope.message = 'test';
+
+  $scope.scotches = [{
+    name: 'Macallan 12',
+    price: 50
+  }, {
+    name: 'Chivas Regal Bagpipes 12',
+    price: 1000
+  }, {
+    name: 'Huge Bells',
+    price: 50000000
+  }]
+})
